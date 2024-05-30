@@ -1,1 +1,54 @@
-
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+  
+    
+    public ListNode reverseBetween(ListNode head, int left, int right) {
+     if(head == null || head.next == null || left == right)
+         return head;
+        
+        ListNode current = head;
+        ListNode prev = null;
+        ListNode Next = head;
+        ListNode first = head;
+        ListNode last = head;
+        
+        for(int i = 2 ; i < left; i++){
+            current = current.next;
+        }
+        int length = right - left;
+      
+        if(left>1){
+         length = right-left;
+        first = current;
+        current = current.next;
+        last = current;
+     Next = current;     
+        }
+        while(current!=null && length>=0){
+            Next = current.next;
+            current.next = prev;
+            prev = current;
+            current = Next;
+            length--;
+    }   if(left == 1)
+        {
+            head.next = Next;
+            return prev;
+        }
+        first.next = prev;
+        if(Next!=null)
+        last.next = Next;
+        return head;
+        
+        
+    }
+}
